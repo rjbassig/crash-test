@@ -6,6 +6,9 @@ import type { MapGeoJSONFeature } from "maplibre-gl";
 import { feature } from "topojson-client";
 import { useEffect, useRef, useState } from "react";
 
+// MapLibre v6 requires an explicit worker URL when bundled by Next.js.
+maplibregl.setWorkerUrl(new URL("maplibre-gl/dist/maplibre-gl-worker.mjs", import.meta.url).toString());
+
 export type Metric = { police_beat: string; predicted_mean: number; observed_mean: number; relative_risk: number; risk_rank: number; occurrence_probability: number };
 type RiskView = "relative_risk" | "predicted_mean" | "observed_mean" | "residual";
 type Props = { api: string; onSelect: (beat: string) => void; selectedBeat: string | null; view: RiskView };
