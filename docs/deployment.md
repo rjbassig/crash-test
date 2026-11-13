@@ -29,5 +29,5 @@ are absent; this prevents a deployed shell with fabricated or empty charts.
 1. Visit `https://api.crash-test.rjbassig.dev/health`; require `status: ok` and both artifact flags true.
 2. Visit `/api/overview`; verify the 2025 MAE matches `experiments/expanded/summary.json`.
 3. Deploy the dashboard and verify it displays those values using the configured API URL.
-4. Add `crashtest.rjbassig.dev` and `api.crashtest.rjbassig.dev` DNS records only after each provider supplies its target.
+4. Add the `A` record `crashtest.rjbassig.dev → 76.76.21.21` at Namecheap, then wait for Vercel verification. The API is intentionally reached through the dashboard's server-side proxy; a public API subdomain is not required for this release.
 5. Update the portfolio’s external links only after the two public URLs return real artifacts.
