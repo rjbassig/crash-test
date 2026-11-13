@@ -1,0 +1,17 @@
+{
+  "sources": [
+    {
+      "name": "San Diego Police traffic collisions — basic reports",
+      "url": "https://seshat.datasd.org/traffic_collisions/pd_collisions_datasd.csv",
+      "landing_page": "https://data.sandiego.gov/datasets/traffic-collisions/",
+      "purpose": "Primary collision occurrence, police beat, date/time, injury, fatality, and hit-and-run fields."
+    },
+    {
+      "name": "San Diego traffic ADT counts",
+      "url": "https://seshat.datasd.org/traffic_adt_counts/traffic_counts_datasd.csv",
+      "landing_page": "https://data.sandiego.gov/datasets/traffic-adt-counts/",
+      "purpose": "Provenance-only auxiliary source; not joined to beat-level forecasts without a validated spatial crosswalk."
+    }
+  ],
+  "notes": "Run scripts/run_research.py to create a timestamped local provenance record with record counts, schema, missingness, and SHA-256 checksums."
+}

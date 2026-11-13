@@ -1,0 +1,23 @@
+# Source downloads and derivative research outputs stay local.
+data/raw/
+data/processed/
+experiments/results/
+reports/figures/
+reports/*.pdf
+models/
+
+# Python / Node / editor artifacts
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+node_modules/
+.next/
+dist/
+coverage/
+.DS_Store
+.env
+.env.*
+!.env.example

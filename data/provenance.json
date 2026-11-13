@@ -1,0 +1,50 @@
+{
+  "collision_source": {
+    "path": "/Users/randallbassig/Documents/ChatGPT/Personal Portfolio/data/raw/pd_collisions_datasd.csv",
+    "sha256": "ecb8b058c8af380dba979eedf9fbbcd07319eb9bc811f72c9cdd7061d32af30d",
+    "records": 78715,
+    "columns": [
+      "REPORT_ID",
+      "DATE_TIME",
+      "POLICE_BEAT",
+      "ADDRESS_NO_PRIMARY",
+      "ADDRESS_PD_PRIMARY",
+      "ADDRESS_ROAD_PRIMARY",
+      "ADDRESS_SFX_PRIMARY",
+      "ADDRESS_PD_INTERSECTING",
+      "ADDRESS_NAME_INTERSECTING",
+      "ADDRESS_SFX_INTERSECTING",
+      "VIOLATION_SECTION",
+      "VIOLATION_TYPE",
+      "CHARGE_DESC",
+      "INJURED",
+      "KILLED",
+      "HIT_RUN_LVL"
+    ],
+    "missing_values": {
+      "REPORT_ID": 0,
+      "DATE_TIME": 0,
+      "POLICE_BEAT": 0,
+      "ADDRESS_NO_PRIMARY": 0,
+      "ADDRESS_PD_PRIMARY": 0,
+      "ADDRESS_ROAD_PRIMARY": 1,
+      "ADDRESS_SFX_PRIMARY": 4,
+      "ADDRESS_PD_INTERSECTING": 0,
+      "ADDRESS_NAME_INTERSECTING": 4,
+      "ADDRESS_SFX_INTERSECTING": 10,
+      "VIOLATION_SECTION": 0,
+      "VIOLATION_TYPE": 0,
+      "CHARGE_DESC": 0,
+      "INJURED": 0,
+      "KILLED": 0,
+      "HIT_RUN_LVL": 42674
+    },
+    "date_min": "2015-03-19 12:00:00",
+    "date_max": "2026-11-06 01:20:00",
+    "unique_reports": 78715,
+    "unique_beats": 148
+  },
+  "spatial_unit": "San Diego Police beat",
+  "time_unit": "week beginning Monday",
+  "coordinate_policy": "No collision coordinates are inferred or fabricated; source-level block address fields are not treated as point geometry."
+}

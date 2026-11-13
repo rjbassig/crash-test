@@ -1,0 +1,40 @@
+{
+  "task": "next-week collision count and relative risk ranking by San Diego Police beat",
+  "selection": {
+    "validation_year": 2024,
+    "selected_max_leaf_nodes": 31,
+    "criterion": "lowest validation MAE"
+  },
+  "split_rows": {
+    "train": 60236,
+    "validation": 7844,
+    "test": 7696
+  },
+  "test_period": {
+    "start": "2025-01-06",
+    "end": "2025-12-29"
+  },
+  "count_models": {
+    "seasonal_naive": {
+      "mae": 0.887604161122661,
+      "rmse": 1.4411081326356294,
+      "poisson_deviance": 7.426956885017053
+    },
+    "hist_gradient_boosting_poisson": {
+      "mae": 0.6982926244593675,
+      "rmse": 1.0259008792939912,
+      "poisson_deviance": 0.9350556386812668
+    }
+  },
+  "occurrence_model": {
+    "average_precision": 0.8152472914157669,
+    "brier_score": 0.1620210779280381,
+    "positive_rate": 0.47557172557172556
+  },
+  "leakage_controls": [
+    "chronological train/validation/test split",
+    "lag and rolling features shifted by one week",
+    "no coordinates inferred from block-level source",
+    "2026 incomplete data excluded from reported test metrics"
+  ]
+}

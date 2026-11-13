@@ -1,0 +1,145 @@
+{
+  "experiment": "crash-test-expanded-v1",
+  "task": "next-week collision count and relative risk ranking by San Diego Police beat",
+  "historical_baseline_artifacts": "experiments/historical/baseline-v0",
+  "held_out_2025": {
+    "train_end": "2025-01-01",
+    "test_start": "2025-01-01",
+    "test_end": "2026-01-01",
+    "rows": 7696,
+    "models": {
+      "seasonal_naive": {
+        "mae": 0.887604161122661,
+        "rmse": 1.4411081326356294,
+        "poisson_deviance": 7.426956885017053,
+        "top_fraction": 0.1,
+        "recall_at_top_k": 0.38831168831168833,
+        "lift": 2.7658996376836504
+      },
+      "poisson_glm": {
+        "mae": 0.8417894705289768,
+        "rmse": 1.1598626704283366,
+        "poisson_deviance": 1.2619663726205042,
+        "top_fraction": 0.1,
+        "recall_at_top_k": 0.551948051948052,
+        "lift": 3.534425553271503
+      },
+      "hist_gradient_boosting": {
+        "mae": 0.6969048359719355,
+        "rmse": 1.0240552681105892,
+        "poisson_deviance": 0.9345602817003086,
+        "top_fraction": 0.1,
+        "recall_at_top_k": 0.561038961038961,
+        "lift": 3.5873361154462264
+      }
+    }
+  },
+  "rolling_origin": [
+    {
+      "train_end": "2023-01-01",
+      "test_start": "2023-01-01",
+      "test_end": "2024-01-01",
+      "rows": 7696,
+      "models": {
+        "seasonal_naive": {
+          "mae": 0.8881239073544699,
+          "rmse": 1.4563555360919653,
+          "poisson_deviance": 7.360815636111271,
+          "top_fraction": 0.1,
+          "recall_at_top_k": 0.42857142857142855,
+          "lift": 2.855658627087199
+        },
+        "poisson_glm": {
+          "mae": 0.8629086895188683,
+          "rmse": 1.1982394729694235,
+          "poisson_deviance": 1.293500085020729,
+          "top_fraction": 0.1,
+          "recall_at_top_k": 0.5298701298701298,
+          "lift": 3.345562729334158
+        },
+        "hist_gradient_boosting": {
+          "mae": 0.7044256333475836,
+          "rmse": 1.0377979302526374,
+          "poisson_deviance": 0.9299360821352243,
+          "top_fraction": 0.1,
+          "recall_at_top_k": 0.5454545454545454,
+          "lift": 3.4229828076685225
+        }
+      }
+    },
+    {
+      "train_end": "2024-01-01",
+      "test_start": "2024-01-01",
+      "test_end": "2025-01-01",
+      "rows": 7844,
+      "models": {
+        "seasonal_naive": {
+          "mae": 0.8859002691228965,
+          "rmse": 1.4448468458475572,
+          "poisson_deviance": 7.030998992869609,
+          "top_fraction": 0.1,
+          "recall_at_top_k": 0.3796178343949045,
+          "lift": 2.7823342124686152
+        },
+        "poisson_glm": {
+          "mae": 0.8522258409642653,
+          "rmse": 1.1868359082441178,
+          "poisson_deviance": 1.2866737057601285,
+          "top_fraction": 0.1,
+          "recall_at_top_k": 0.5095541401273885,
+          "lift": 3.3756548946953653
+        },
+        "hist_gradient_boosting": {
+          "mae": 0.710714645771261,
+          "rmse": 1.0502631085148546,
+          "poisson_deviance": 0.9524381543011019,
+          "top_fraction": 0.1,
+          "recall_at_top_k": 0.5222929936305732,
+          "lift": 3.4253160971724945
+        }
+      }
+    }
+  ],
+  "occurrence_calibration": {
+    "average_precision": 0.8143146692409472,
+    "brier_score": 0.1639938700135092,
+    "base_rate": 0.47557172557172556,
+    "calibration_protocol": "Logistic calibration fit on 2024 only"
+  },
+  "spatial_generalization": {
+    "holdout_beats": 30,
+    "test_rows": 1560,
+    "hist_gradient_boosting": {
+      "mae": 0.6386015738349584,
+      "rmse": 0.9351596548378622,
+      "poisson_deviance": 0.9319466108095218
+    }
+  },
+  "ablation": {
+    "time_history_only": {
+      "mae": 0.696930469502058,
+      "rmse": 1.0229844637278327,
+      "poisson_deviance": 0.9334280941363562
+    },
+    "full_model": {
+      "mae": 0.6969048359719355,
+      "rmse": 1.0240552681105892,
+      "poisson_deviance": 0.9345602817003086,
+      "top_fraction": 0.1,
+      "recall_at_top_k": 0.561038961038961,
+      "lift": 3.5873361154462264
+    }
+  },
+  "bootstrap_mae_improvement_over_seasonal_naive": {
+    "mean_improvement": 0.19041126928705088,
+    "ci_95_low": 0.16997641348078105,
+    "ci_95_high": 0.20959657631093617
+  },
+  "leakage_controls": [
+    "chronological split",
+    "one-week shifted lags and rolling features",
+    "2025 test year never used for model or calibrator fitting",
+    "disjoint-beat spatial test",
+    "no inferred point coordinates"
+  ]
+}
