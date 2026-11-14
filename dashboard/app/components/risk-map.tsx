@@ -3,11 +3,32 @@
 import "maplibre-gl/dist/maplibre-gl.css";
 import * as maplibregl from "maplibre-gl";
 import type { MapGeoJSONFeature } from "maplibre-gl";
+import proj4 from "proj4";
 import { feature } from "topojson-client";
 import { useEffect, useRef, useState } from "react";
 
 // MapLibre v6 requires an explicit worker URL when bundled by Next.js.
 maplibregl.setWorkerUrl(new URL("maplibre-gl/dist/maplibre-gl-worker.mjs", import.meta.url).toString());
+
+// SDPD's published beat topology is in California State Plane Zone 6 (US feet),
+// while MapLibre expects WGS84 longitude/latitude coordinates.
+proj4.defs("EPSG:2230", "+proj=lcc +lat_0=32.1666666666667 +lon_0=-116.25 +lat_1=33.8833333333333 +lat_2=32.7833333333333 +x_0=6561666.66666667 +y_0=1640416.66666667 +datum=NAD83 +units=us-ft +no_defs +type=crs");
+
+function toWgs84(value: unknown): unknown {
+  if (!Array.isArray(value)) return value;
+  if (typeof value[0] === "number" && typeof value[1] === "number") {
+    return proj4("EPSG:2230", "WGS84", [value[0], value[1]]);
+  }
+  return value.map(toWgs84);
+}
+
+function reprojectGeometry(geometry: GeoJSON.Geometry): void {
+  if ("coordinates" in geometry) {
+    geometry.coordinates = toWgs84(geometry.coordinates) as never;
+    return;
+  }
+  geometry.geometries.forEach(reprojectGeometry);
+}
 
 export type Metric = { police_beat: string; predicted_mean: number; observed_mean: number; relative_risk: number; risk_rank: number; occurrence_probability: number };
 type RiskView = "relative_risk" | "predicted_mean" | "observed_mean" | "residual";
@@ -19,6 +40,7 @@ export function RiskMap({ api, onSelect, selectedBeat, view }: Props) {
     fetch(`${api}/api/geography/beats`).then(async response => { if (!response.ok) throw new Error(`Map data unavailable (${response.status})`); return response.json(); }).then(data => {
       if (cancelled || !node.current) return;
       const geo = feature(data.topology, data.topology.objects.data) as unknown as GeoJSON.FeatureCollection;
+      geo.features.forEach(entry => { if (entry.geometry) reprojectGeometry(entry.geometry); });
       const metrics = new Map<string, Metric>(data.metrics.map((entry: Metric) => [String(entry.police_beat), entry]));
       geo.features.forEach(entry => { const key = String(entry.properties?.beat ?? ""); const metric = metrics.get(key); entry.properties = { ...entry.properties, ...metric, beat: key, residual: metric ? metric.observed_mean - metric.predicted_mean : 0 }; });
       map = new maplibregl.Map({ container: node.current, style: { version: 8, sources: {}, layers: [{ id: "background", type: "background", paint: { "background-color": "#101412" } }] }, center: [-117.14, 32.77], zoom: 9.6 }); mapRef.current = map;
