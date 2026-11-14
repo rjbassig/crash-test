@@ -12,7 +12,7 @@ maplibregl.setWorkerUrl(new URL("maplibre-gl/dist/maplibre-gl-worker.mjs", impor
 
 // SDPD's published beat topology is in California State Plane Zone 6 (US feet),
 // while MapLibre expects WGS84 longitude/latitude coordinates.
-proj4.defs("EPSG:2230", "+proj=lcc +lat_0=32.1666666666667 +lon_0=-116.25 +lat_1=33.8833333333333 +lat_2=32.7833333333333 +x_0=6561666.66666667 +y_0=1640416.66666667 +datum=NAD83 +units=us-ft +no_defs +type=crs");
+proj4.defs("EPSG:2230", "+proj=lcc +lat_0=32.1666666666667 +lon_0=-116.25 +lat_1=32.7833333333333 +lat_2=33.8833333333333 +x_0=2000000 +y_0=500000 +datum=NAD83 +units=us-ft +no_defs +type=crs");
 
 function toWgs84(value: unknown): unknown {
   if (!Array.isArray(value)) return value;
